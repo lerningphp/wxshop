@@ -29,7 +29,7 @@ route::any('verify/create','CaptchaController@create');
  * @content 商城页面路由组
  */
 Route::prefix('index')->group(function (){
-    route::get('allshops/{id?}','Shop\shopController@allshops');
+    route::get('allshops/{id?}','Shop\ShopController@allshops');
     route::get('userpage','Shop\ShopController@userpage')->middleware('logs');
     route::get('shopcontent/{id?}','Shop\ShopController@shopcontent');
     route::post('shopajax','Shop\ShopController@shopajax');
