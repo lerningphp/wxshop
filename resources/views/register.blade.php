@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{url('layui/css/layui.css')}}">
     {{--<link rel="stylesheet" href="{{url('css/modipwd.css')}}">--}}
     {{--<link href="{{url('css/findpwd.css')}}" rel="stylesheet" type="text/css" />--}}
-    <script src="{{url('js/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{url('js/jquery-1.11.2.min.js')}}"></script>
     <script src="{{url('layui/layui.js')}}"></script>
 
 </head>

@@ -14,7 +14,6 @@
 
     <link href="{{url('css/goods.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('css/comm.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{url('css/index.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('css/member.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('css/cartlist.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('css/fsgallery.css')}}" rel="stylesheet" charset="utf-8">

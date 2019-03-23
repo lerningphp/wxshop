@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Model\goods;
 use App\Model\category;
 use App\Model\user;
-use App\Common;
+use App\common;
+
 class IndexController extends Controller
 {
     //商城首页
@@ -115,7 +116,7 @@ class IndexController extends Controller
     /**
      * 发送验证码的方法
      */
-    private function sendmobile($mobile)
+    public function sendmobile($mobile)
     {
         $host = env("MOBILE_HOST");
         $path = env("MOBILE_PATH");
@@ -123,7 +124,7 @@ class IndexController extends Controller
         $appcode = env("MOBILE_APPCODE");
         $time = time();
         $headers = array();
-        $code = Common::createcode(4);//注册时发送短信生成的验证码
+        $code = common::createcode(4);//注册时发送短信生成的验证码
         session(['verifycode'=>$code,'user_tel'=>$mobile,'time'=>$time]);
         array_push($headers, "Authorization:APPCODE " . $appcode);
         $querys = "content=【创信】你的验证码是：".$code."，3分钟内有效！&mobile=".$mobile;

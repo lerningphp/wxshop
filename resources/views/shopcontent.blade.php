@@ -12,7 +12,6 @@
                     <div class="hotimg-top"></div>
                     <section id="gallery" class="hotimg">
                         <ul class="slides" style="width: 600%; transition-duration: 0.4s; transform: translate3d(-828px, 0px, 0px);">
-
                             @foreach($imgs as $k=>$v)
                                 <li style="width: 414px; float: left; display: block;" class="clone">
                                 <a href="javascript:;">

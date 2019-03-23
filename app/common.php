@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Common extends Model
+class common extends Model
 {
     /**
      * @content 生成随机验证码
