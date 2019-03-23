@@ -152,7 +152,7 @@
 	border-left:1px solid #dedede;
 }
 .u-Cart-r .num-mius.dis,.u-Cart-r .num-add.dis {
-	background-color:#f5f5f5;
+	/*background-color:#f5f5f5;*/
 }
 .u-Cart-r .num-mius i,.u-Cart-r .num-add i {
 	width:11px;
@@ -253,7 +253,7 @@
 	background:#fff;
 }
 .g-Total-bt.g-car-new dt {
-	padding:4px 10px;
+	padding:10px 10px;
 	box-sizing:border-box;
 	width:50%;
 	float:left;

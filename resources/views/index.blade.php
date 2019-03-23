@@ -140,7 +140,7 @@
 				<div class="sub-nav four" style="display: none;">
 					<a href="#"><i class="announced"></i>万万没想到</a>
 					<a href="#"><i class="single"></i>晒单</a>
-					<a href="#"><i class="personal"></i>我的潮购</a>
+					<a href="{{url('index/userpage')}}"><i class="personal"></i>我的潮购</a>
 					<a href="#"><i class="shopcar"></i>购物车</a>
 				</div>
 			</div>

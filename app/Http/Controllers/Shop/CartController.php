@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\goods;
 use App\Model\cart;
-class cartController extends Controller
+class CartController extends Controller
 {
     /**
      * 商品添加到购物车
@@ -21,7 +21,6 @@ class cartController extends Controller
 //        print_r($goodsInfo);die;
         $arr = $cartmodel->where(['goods_id'=>$goods_id,'user_id'=>$user_id,'cart_status'=>1])->first();
 //       print_r($arr);die;
-
         if(empty($arr)){
             if($goodsInfo->goods_num>=1){
                 $data['goods_id']=$goods_id;
@@ -51,7 +50,22 @@ class cartController extends Controller
             }
         }
     }
-
+    /**
+     * @content 购物车页面商品删除
+     */
+    public function cartdel(Request $request)
+    {
+        $goods_id = $request->goods_id;
+        $user_id = session('user_id');
+        $data = ['cart_status'=>2];
+        $cartmodel = new cart;
+        $res = $cartmodel->where(['user_id'=>$user_id,'goods_id'=>$goods_id])->update($data);
+        if($res){
+            echo json_encode(['font'=>"删除成功",'code'=>1]);exit;
+        }else{
+            echo json_encode(['font'=>'删除失败','code'=>2]);exit;
+        }
+    }
     /*
      * 购物车
      * */
@@ -65,8 +79,14 @@ class cartController extends Controller
             ->where(['user_id'=>session('user_id'),'cart_status'=>1])
             ->orderBy('cart.create_time','desc')
             ->get();
+//        print_r($data);die;
 
-        return view('shopcart',['data'=>$data],['goodsinfo'=>$goodsinfo]);
+        $allprice = '2';
+        foreach($data as $k=>$v){
+            $allprice += $v['self_price']*$v['buy_number'];
+        }
+//        dump($allprice);die;
+        return view('shopcart',['data'=>$data],['goodsinfo'=>$goodsinfo],['allprice'=>$allprice]);
 
     }
 
@@ -75,6 +95,24 @@ class cartController extends Controller
      */
     public function changenum(Request $request)
     {
+        $goods_id = $request->goods_id;
+        $user_id = session('user_id');
+        $buy_number = $request->buy_number;
+        $data = [
+            'buy_number'=>$buy_number
+        ];
+        $cartmodel = new cart;
+        $res = $cartmodel->where(['user_id'=>$user_id,'goods_id'=>$goods_id])->update($data);
 
+        if($res){
+            echo json_encode(['font'=>"",'code'=>1]);exit;
+        }else{
+            echo json_encode(['font'=>'添加失败，请稍后','code'=>2]);exit;
+        }
     }
+
+    /**
+     * 商品总价
+     */
+
 }

@@ -43,11 +43,10 @@
 
             <div class="menu-list-wrapper" id="divSortList">
                 <ul id="sortListUl" class="list">
-
                     @foreach($cateInfo as $k=>$v)
-                    <li sortid='100' reletype='1' linkaddr=''>
-                        <span class='items' id="cate_id" cate_id="{{$v->cate_id}}">{{$v->cate_name}}</span>
-                    </li>
+                        <li sortid='100' reletype='1' linkaddr=''>
+                            <span class='items' id="cate_id" cate_id="{{$v->cate_id}}">{{$v->cate_name}}</span>
+                        </li>
                     @endforeach
                 </ul>
             </div>
@@ -155,12 +154,15 @@
                 var _this=$(this);
                 var cate_id = _this.attr('cate_id');
                 var _token = $('#_token').val();
+                $('#self_price').css('color','');
+                $('#is_new').css('color','');
+                $('#is_hot').css('color','');
                 // console.log(cate_id);
                 // console.log(_token);
                 _this.parent("li").siblings('li').removeClass('current');
                 _this.parent("li").addClass('current');
                 $.post(
-                    "{{url('index/shopAjax')}}",
+                    "{{url('index/shopajax')}}",
                     {_token:_token,cate_id:cate_id},
                     function (res) {
                        $('.good-list-inner').html(res);
@@ -292,6 +294,7 @@
             /** 点击新品 */
             $(document).on('click','#is_new',function () {
                 var _token = $('#_token').val();
+
                 $(this).css('color','red');
                 $('#self_price').css('color','');
                 $('#is_hot').css('color','');

@@ -17,7 +17,7 @@
             <ul id="cartBody">
                 @foreach($data as $k=>$v)
                 <li>
-                    <s class="xuan current"></s>
+                    <s class="xuan current" goods_id="{{$v->goods_id}}"></s>
                     <a class="fl u-Cart-img" href="/v44/product/12501977.do">
                         <img src="{{url('image/goodsimg')}}/{{$v->goods_img}}" border="0" alt="">
                     </a>
@@ -26,12 +26,13 @@
                         <span class="gray9">
                             剩余<em>{{$v->goods_num-$v->buy_number}}</em>人次
                         </span>
-                        <div class="num-opt">
+                        <div class="num-opt" goods_num="{{$v->goods_num}}" goods_id="{{$v->goods_id}}">
+
                             <em class="num-mius dis min"><i></i></em>
                             <input class="text_box" name="num" maxlength="6" type="text" value="{{$v->buy_number}}" codeid="12501977">
                             <em class="num-add add"><i></i></em>
                         </div>
-                        <a href="javascript:;" name="delLink" cid="12501977" isover="0" class="z-del"><s></s></a>
+                        <a href="javascript:;" name="delLink" cid="12501977" isover="0" class="z-del" goods_id="{{$v->goods_id}}"><s></s></a>
                     </div>
                 </li>
                 @endforeach
@@ -41,12 +42,12 @@
         <div id="mycartpay" class="g-Total-bt g-car-new" style="">
             <dl>
                 <dt class="gray6">
-                    <s class="quanxuan current"></s>全选
-                    <p class="money-total">合计<em class="orange total"><span>￥</span>17.00</em></p>
+                    <s class="quanxuan current"></s>全选/
+
+                    <p class="money-total">合计<em class="orange total"><span>￥</span></em></p>
                     
                 </dt>
                 <dd>
-                    <a href="javascript:;" id="a_payment" class="orangeBtn w_account remove">删除</a>
                     <a href="javascript:;" id="a_payment" class="orangeBtn w_account">去结算</a>
                 </dd>
             </dl>
@@ -102,7 +103,25 @@
     <script type="text/javascript">
     $(function () {
         layui.use(['layer'],function () {
+            //点击删除按钮
+            $('.z-del').click(function () {
+                var goods_id = $(this).attr('goods_id');
+                var _token = $('#_token').val();
+                $.post(
+                    "{{url('cart/cartdel')}}",
+                    {_token:_token,goods_id:goods_id},
+                    function (res) {
+                        // console.log(res);
+                        layer.msg(res.font,{icon:res.code});
+                        if(res.code == 1){
+                            window.location.reload()
+                        }
+                    },
+                    'json'
+                );
+            })
             $('#div-header').attr('style','display:none');
+            //点击加入购物车
             $('.cartadd').click(function () {
                 // layer.msg('hahah');
                 var goods_id = $(this).attr('goods_id');
@@ -121,84 +140,119 @@
                     'json'
                 );
             })
+
+            //点击加号
             $(".add").click(function () {
-                var t = $(this).prev();
-                t.val(parseInt(t.val()) + 1);
-                GetCount();
+                var _this = $(this);
+                var _token = $('#_token').val();
+                var t = _this.prev();
+                var buy_number = parseInt(t.val());
+                var goods_num = _this.parent().attr('goods_num');
+                var goods_id = _this.parent().attr('goods_id');
+                if(buy_number>=goods_num-buy_number){
+                    layer.msg('没货了，别点了',{icon:5});
+                    return false;
+                }else{
+                    var buy_numbers = buy_number + 1;
+                }
+                getCartNum(goods_id,buy_numbers,_token);
+
+
             })
+            //点击减号
             $(".min").click(function () {
-                var t = $(this).next();
-                if(t.val()>1){
-                    t.val(parseInt(t.val()) - 1);
+                var _this = $(this);
+                var _token = $('#_token').val();
+                var t = _this.next();
+                var buy_number = parseInt(t.val());
+                var goods_num = _this.parent().attr('goods_num');
+                var goods_id = _this.parent().attr('goods_id');
+                if(buy_number<=1){
+                    layer.msg('在考虑考虑~再点没了',{icon:5});
+                    // _this.parents('li').children("s[class='xuan']").removeClass('current');
+                    return false;
+                }else{
+                    var buy_numbers = buy_number - 1;
+                }
+                getCartNum(goods_id,buy_numbers,_token);
+
+            })
+            //获取控制器数量
+            function getCartNum(goods_id,buy_number,_token)
+            {
+                $.post(
+                    "{{url('cart/changenum')}}",
+                    {goods_id:goods_id,buy_number:buy_number,_token:_token},
+                    function (res) {
+                        if(res.code == 2){
+                            layer.msg(res.font,{icon:res.code});
+                            return false;
+                        }else{
+                            window.location.reload()
+                        }
+                    }
+
+                );
+            }
+
+            // 全选
+            $(".quanxuan").click(function () {
+                if($(this).hasClass('current')){
+                    $(this).removeClass('current');
+
+                     $(".g-Cart-list .xuan").each(function () {
+                        if ($(this).hasClass("current")) {
+                            $(this).removeClass("current");
+                        } else {
+                            $(this).addClass("current");
+                        }
+                    });
+                    GetCount();
+                }else{
+                    $(this).addClass('current');
+
+                     $(".g-Cart-list .xuan").each(function () {
+                        $(this).addClass("current");
+                        // $(this).next().css({ "background-color": "#3366cc", "color": "#ffffff" });
+                    });
                     GetCount();
                 }
-            })
+
+
+            });
+            // 单选
+            $(".g-Cart-list .xuan").click(function () {
+                if($(this).hasClass('current')){
+                    $(this).removeClass('current');
+                }else{
+                    $(this).addClass('current');
+                }
+                if($('.g-Cart-list .xuan.current').length==$('#cartBody li').length){
+                        $('.quanxuan').addClass('current');
+                    }else{
+                        $('.quanxuan').removeClass('current');
+                    }
+                // $("#total2").html() = GetCount($(this));
+                GetCount();
+                //alert(conts);
+            });
+          // 已选中的总额
+            function GetCount() {
+                var conts = 0;
+                var goods_id = '';
+                $(".g-Cart-list .xuan").each(function () {
+                    if ($(this).hasClass("current")) {
+                       goods_id+=$(this).attr('goods_id')+',';
+                    }
+                });
+                goods_id = goods_id.substr(0,goods_id.length-1);
+                console.log(goods_id);
+
+                 $(".total").html('<span>￥</span>'+(conts).toFixed(2));
+            }
+            GetCount();
         })
     });
-    </script>
-
-    <script>
-    // 全选        
-    $(".quanxuan").click(function () {
-        if($(this).hasClass('current')){
-            $(this).removeClass('current');
-
-             $(".g-Cart-list .xuan").each(function () {
-                if ($(this).hasClass("current")) {
-                    $(this).removeClass("current"); 
-                } else {
-                    $(this).addClass("current");
-                } 
-            });
-            GetCount();
-        }else{
-            $(this).addClass('current');
-
-             $(".g-Cart-list .xuan").each(function () {
-                $(this).addClass("current");
-                // $(this).next().css({ "background-color": "#3366cc", "color": "#ffffff" });
-            });
-            GetCount();
-        }
-        
-        
-    });
-    // 单选
-    $(".g-Cart-list .xuan").click(function () {
-        if($(this).hasClass('current')){
-            
-
-            $(this).removeClass('current');
-
-        }else{
-            $(this).addClass('current');
-        }
-        if($('.g-Cart-list .xuan.current').length==$('#cartBody li').length){
-                $('.quanxuan').addClass('current');
-
-            }else{
-                $('.quanxuan').removeClass('current');
-            }
-        // $("#total2").html() = GetCount($(this));
-        GetCount();
-        //alert(conts);
-    });
-  // 已选中的总额
-    function GetCount() {
-        var conts = 0;
-        var aa = 0; 
-        $(".g-Cart-list .xuan").each(function () {
-            if ($(this).hasClass("current")) {
-                for (var i = 0; i < $(this).length; i++) {
-                    conts += parseInt($(this).parents('li').find('input.text_box').val());
-                    // aa += 1;
-                }
-            }
-        });
-        
-         $(".total").html('<span>￥</span>'+(conts).toFixed(2));
-    }
-    GetCount();
 </script>
 @endsection
 

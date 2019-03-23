@@ -30,20 +30,21 @@ route::any('verify/create','CaptchaController@create');
  */
 Route::prefix('index')->group(function (){
     route::get('allshops/{id?}','Shop\shopController@allshops');
-
-    route::get('userpage','Shop\shopController@userpage')->middleware('logs');
-    route::get('shopcontent/{id?}','Shop\shopController@shopcontent');
-    route::post('shopAjax','Shop\shopController@shopAjax');
-    route::post('ishot','Shop\shopController@ishot');
-    route::post('isnew','Shop\shopController@isnew');
-    route::post('price','Shop\shopController@price');
+    route::get('userpage','Shop\ShopController@userpage')->middleware('logs');
+    route::get('shopcontent/{id?}','Shop\ShopController@shopcontent');
+    route::post('shopajax','Shop\ShopController@shopajax');
+    route::post('ishot','Shop\ShopController@ishot');
+    route::post('isnew','Shop\ShopController@isnew');
+    route::post('price','Shop\ShopController@price');
 });
 
 /**
  * 购物车页面路由组
  */
 Route::prefix('cart')->group(function (){
-    route::post('cartadd','Shop\cartController@cartadd');
-    route::get('shopcart/{id?}','Shop\cartController@shopcart')->middleware('logs');
+    route::post('cartadd','Shop\CartController@cartadd');
+    route::post('cartdel','Shop\CartController@cartdel');
+    route::post('changenum','Shop\CartController@changenum');
+    route::get('shopcart/{id?}','Shop\CartController@shopcart')->middleware('logs');
 
 });

@@ -104,7 +104,7 @@ class IndexController extends Controller
     public function phone(Request $request)
     {
         $mobile = $request->user_tel;
-        $res = $this->sendMobile($mobile);
+        $res = $this->sendmobile($mobile);
 //        dd($res);die;
         if($res){
             echo 1;
@@ -115,7 +115,7 @@ class IndexController extends Controller
     /**
      * 发送验证码的方法
      */
-    private function sendMobile($mobile)
+    private function sendmobile($mobile)
     {
         $host = env("MOBILE_HOST");
         $path = env("MOBILE_PATH");

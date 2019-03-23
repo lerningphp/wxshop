@@ -63,7 +63,7 @@ class ShopController extends Controller
     /**
      * ajax查询
      */
-    public function shopAjax(Request $request)
+    public function shopajax(Request $request)
     {
         $cate_id=$request->cate_id;
 //        echo $cate_id;
