@@ -78,12 +78,9 @@ class IndexController extends Controller
         if($user_tel!=session('user_tel')){
             echo 1;die;
         }
-
-        $user_pwds = encrypt($user_pwd);
-
         $model = new User();
         $model->user_tel = $user_tel;
-        $model->user_pwd = $user_pwds;
+        $model->user_pwd = $user_pwd;
         $model->user_code = $usercode;
         $res = $model->save();
 
