@@ -46,7 +46,7 @@ class IndexController extends Controller
         $user_model=new User();
         $arr=User::where('user_tel',$user_tel)->first()->toArray();
 
-        $pwd=decrypt($arr['user_pwd']);
+        $pwd=123123;
 
         //echo $pwd;die;
         if(empty($arr)){

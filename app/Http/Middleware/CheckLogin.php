@@ -17,6 +17,7 @@ class CheckLogin
     {
 
         session(['user_id'=>6]);
+//        dump(session('user_id'));die;
         return $next($request);
     }
 }
