@@ -38,6 +38,9 @@ class IndexController extends Controller
         $user_tel = $request->user_tel;
         $user_pwd=$request->user_pwd;
         $usercode=$request->usercode;
+//        echo $user_tel;
+//        echo $user_pwd;
+//        echo $usercode;die;
         $codes = session('logincode');
 //        echo $usercode;die;
         if($usercode!=$codes){
@@ -45,21 +48,15 @@ class IndexController extends Controller
         }
         $user_model=new User();
         $arr=User::where('user_tel',$user_tel)->first()->toArray();
-
-        $pwd=a123123;
-
+//        print_r($arr);die;
         //echo $pwd;die;
-        if(empty($arr)){
-            //用户不存在
-            echo 2;die;
+        if($arr){
+            session(["user_id"=>$arr['user_id'],'user_tel'=>$user_tel]);
+            echo 3;
         }else{
-            if($user_pwd==$pwd){
-                session(["user_id"=>$arr['user_id'],'user_tel'=>$user_tel]);
-                echo 3;
-            }else{
-                echo 4;
-            }
+            echo 4;
         }
+
     }
     /**
      * 注册静态页面
