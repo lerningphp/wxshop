@@ -114,6 +114,7 @@
                             location.href= "{{url('index')}}";
                         }else if(res==4){
                             layer.msg("登录失败");
+                            window.location.reload();
                         }
                     }
 

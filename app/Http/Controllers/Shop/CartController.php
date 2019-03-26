@@ -105,14 +105,37 @@ class CartController extends Controller
         $res = $cartmodel->where(['user_id'=>$user_id,'goods_id'=>$goods_id])->update($data);
 
         if($res){
-            echo json_encode(['font'=>"",'code'=>1]);exit;
+            echo json_encode(['font'=>"",'code'=>1,'num'=>$buy_number]);exit;
         }else{
             echo json_encode(['font'=>'添加失败，请稍后','code'=>2]);exit;
         }
     }
 
-    /**
-     * 商品总价
-     */
+//    /**
+//     * 商品总价
+//     */
+//    public function countprice(Request $request)
+//    {
+//        $goods_id = $request->goods_id;
+////        var_dump($goods_id);die;
+//
+//        $user_id = session('user_id');
+//        $cart_model = new cart;
+//        $data=$cart_model
+//            ->join('goods','cart.goods_id','=','goods.goods_id')
+//            ->where(['user_id'=>$user_id,'cart_status'=>1])
+//            ->whereIn('cart.goods_id',explode(',',$goods_id))
+//            ->get()
+//            ->toArray();
+//
+////        print_r($data);die;
+//
+//        $allprice='';
+//        foreach($data as $k=>$v){
+//            $allprice = $v['self_price']*$v['buy_number'];
+//        }
+//        var_dump($allprice);die;
+//
+//    }
 
 }

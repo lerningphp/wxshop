@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\goods;
 use App\Model\category;
+
 class ShopController extends Controller
 {
     //全部商品页
@@ -24,11 +25,6 @@ class ShopController extends Controller
         return view('allshops',['cateInfo'=>$cateInfo],['goodsInfo'=>$goodsInfo]);
     }
 
-    //我的潮购
-    public function userpage()
-    {
-        return view('userpage');
-    }
 
     /**
      * 商品详情页

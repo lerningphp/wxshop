@@ -125,7 +125,8 @@
 					<li class="f_home"><a href="{{url('index')}}" class="hover"><i></i>潮购</a></li>
 					<li class="f_announced"><a href="{{url('index/allshops')}}/0" ><i></i>所有商品</a></li>
 					<li class="f_car"><a id="btnCart" href="{{url('cart/shopcart')}}" ><i></i>购物车</a></li>
-					<li class="f_personal"><a href="{{url('index/userpage')}}" ><i></i>我的潮购</a></li>
+					<li class="f_personal"><a href="{{url('user/userpage')}}" ><i></i>我的潮购</a></li>
+					<li class="f_home"><a href="{{url('index')}}"><i></i>首页</a></li>
 				</ul>
 			</div>
 			<div id="div_fastnav" class="fast-nav-wrapper">

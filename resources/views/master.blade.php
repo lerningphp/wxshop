@@ -19,6 +19,8 @@
     <link href="{{url('css/fsgallery.css')}}" rel="stylesheet" charset="utf-8">
     <link href="{{url('css/swiper.min.css')}}" rel="stylesheet">
     <link href="{{url('layui/css/layui.css')}}" rel="stylesheet" >
+    <link rel="stylesheet" href="{{url('css/buyrecord.css')}}">
+    <link href="{{url('css/single.css')}}" rel="stylesheet" type="text/css" />
     {{--<script src="{{url('js/jquery-1.8.3.min.js')}}"></script>--}}
     <script src="{{url('js/jquery-1.11.2.min.js')}}"></script>
     <script src="{{url('js/jquery-3.1.1.min.js')}}"></script>
@@ -36,9 +38,9 @@
 
 <!--触屏版内页头部-->
 <div class="m-block-header" id="div-header">
-    <strong id="m-title">登录</strong>
+    <strong id="m-title"></strong>
     <a href="javascript:history.back();" class="m-back-arrow"><i class="m-public-icon"></i></a>
-    <a href="/" class="m-index-icon"><i class="home-icon"></i></a>
+    <a href="/index" class="m-index-icon"><i class="home-icon"></i></a>
 </div>
 
         @yield('content')

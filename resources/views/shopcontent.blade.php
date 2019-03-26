@@ -191,7 +191,7 @@
 @section('my-js')
 <script>
     $(function () {
-        $('#div-header').attr('style','display:none');
+        // $('#div-header').attr('style','display:none');
         $('.hotimg').flexslider({   
             directionNav: false,   //是否显示左右控制按钮   
             controlNav: true,   //是否显示底部切换按钮   

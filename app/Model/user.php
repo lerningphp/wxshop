@@ -8,11 +8,11 @@ class user extends Model
 {
     /**
      * @var string \
-     * @content 指定数据表
+     * @content 指定数据表user
      */
     protected $table = 'user';
     /**
-     * 定义表的主键id为  goods_id.
+     * 定义表的主键id为  user_id.
      *
      * @var bool
      */

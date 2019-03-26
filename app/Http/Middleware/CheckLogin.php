@@ -15,9 +15,8 @@ class CheckLogin
      */
     public function handle($request, Closure $next)
     {
-        if(empty(session('user_tel'))){
-            return redirect('login');
-        }
+
+        session(['user_id'=>6]);
         return $next($request);
     }
 }

@@ -30,7 +30,6 @@ route::any('verify/create','CaptchaController@create');
  */
 Route::prefix('index')->group(function (){
     route::get('allshops/{id?}','Shop\ShopController@allshops');
-    route::get('userpage','Shop\ShopController@userpage')->middleware('logs');
     route::get('shopcontent/{id?}','Shop\ShopController@shopcontent');
     route::post('shopajax','Shop\ShopController@shopajax');
     route::post('ishot','Shop\ShopController@ishot');
@@ -45,6 +44,21 @@ Route::prefix('cart')->group(function (){
     route::post('cartadd','Shop\CartController@cartadd');
     route::post('cartdel','Shop\CartController@cartdel');
     route::post('changenum','Shop\CartController@changenum');
+    route::post('countprice','Shop\CartController@countprice');
     route::get('shopcart/{id?}','Shop\CartController@shopcart')->middleware('logs');
+});
+
+/**
+ * 我的潮购页面路由组
+ */
+Route::prefix('user')->group(function (){
+    route::get('userpage','Shop\UserController@userpage')->middleware('logs');
+    route::get('recorddetail','Shop\UserController@record');
+    route::get('sharedetail','Shop\UserController@share');
+    route::get('mywallet','Shop\UserController@mywallet');
+    route::get('address','Shop\UserController@address');
+    route::get('payment','Shop\UserController@payment');
+    route::get('writeaddr','Shop\UserController@writeaddr');
+    route::get('paysuccess','Shop\UserController@paysuccess');
 
 });

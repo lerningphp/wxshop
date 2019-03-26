@@ -9,11 +9,11 @@ class category extends Model
     //分类model
     /**
      * @var string \
-     * @content 指定数据表book
+     * @content 指定数据表category
      */
     protected $table = 'category';
     /**
-     * 定义表的主键id为  goods_id.
+     * 定义表的主键id为  cate_id.
      *
      * @var bool
      */
