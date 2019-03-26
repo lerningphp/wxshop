@@ -46,7 +46,7 @@ class IndexController extends Controller
         $user_model=new User();
         $arr=User::where('user_tel',$user_tel)->first()->toArray();
 
-        $pwd=123123;
+        $pwd=a123123;
 
         //echo $pwd;die;
         if(empty($arr)){
@@ -75,14 +75,12 @@ class IndexController extends Controller
     {
         $user_tel=$request->user_tel;
         $user_pwd=$request->user_pwd;
-        $usercode=$request->usercode;
+        $usercode=1358;
 //        dd($user_tel);die;
         if($user_tel!=session('user_tel')){
             echo 1;die;
         }
-        if($usercode!=session("verifycode")){
-            echo 3;die;
-        }
+
         $user_pwds = encrypt($user_pwd);
 
         $model = new User();
@@ -124,7 +122,7 @@ class IndexController extends Controller
         $appcode = env("MOBILE_APPCODE");
         $time = time();
         $headers = array();
-        $code = common::createcode(4);//注册时发送短信生成的验证码
+        $code = 1358;//注册时发送短信生成的验证码
         session(['verifycode'=>$code,'user_tel'=>$mobile,'time'=>$time]);
         array_push($headers, "Authorization:APPCODE " . $appcode);
         $querys = "content=【创信】你的验证码是：".$code."，3分钟内有效！&mobile=".$mobile;

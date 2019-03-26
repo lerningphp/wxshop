@@ -15,8 +15,10 @@ class CheckLogin
      */
     public function handle($request, Closure $next)
     {
+        if(empty(session('user_id'))){
+            return redirect('login');
+        }
 
-        session(['user_id'=>6]);
 //        dump(session('user_id'));die;
         return $next($request);
     }
