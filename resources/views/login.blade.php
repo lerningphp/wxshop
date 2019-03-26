@@ -106,15 +106,17 @@
                     {_token:_token,usercode:usercode,user_pwd:user_pwd,user_tel:user_tel},
                     function(res){
                         // console.log(res);
-                        if(res == 1){
-                            layer.msg("验证码错误");
-                        }else if(res==3){
+                        // if(res == 1){
+                        //     layer.msg("验证码错误");
+                        // }else
+                        if(res == 3) {
                             layer.msg("登录成功");
-                            location.href= "{{url('index')}}";
-                        }else if(res==4){
-                            layer.msg("登录失败");
-                            window.location.reload();
+                            location.href = "{{url('index')}}";
                         }
+                        // }else if(res==4){
+                        //     layer.msg("登录失败");
+                        //     window.location.reload();
+                        // }
                     }
 
                 );

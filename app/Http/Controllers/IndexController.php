@@ -53,9 +53,8 @@ class IndexController extends Controller
         if($arr){
             session(["user_id"=>$arr['user_id'],'user_tel'=>$user_tel]);
             echo 3;
-        }else{
-            echo 4;
         }
+
 
     }
     /**
