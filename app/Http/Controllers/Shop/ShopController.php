@@ -105,5 +105,16 @@ class ShopController extends Controller
         return view('shopdiv',['goodsInfo'=>$goodsInfo]);
     }
 
+    /**
+     * 商品搜索
+     */
+    public function search(Request $request)
+    {
+        $text = $request->_text;
+//        echo $text;die;
+        $goodsInfo = Goods::where('goods_name','like','%'.$text.'%')->get();
+        return view('shopdiv',['goodsInfo'=>$goodsInfo]);
+
+    }
 
 }

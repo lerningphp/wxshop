@@ -63,20 +63,22 @@ class UserController extends Controller
      */
     public function address()
     {
-        $addressInfo = address::where('user_id',session('user_id'))->get();
+        $addressInfo = address::where('user_id',session('user_id'))->where('address_status',1)->get();
         return view('address',['addressInfo'=>$addressInfo]);
     }
 
     /**
      * 结算
      */
-    public function payment()
+    public function payment(Request $request)
     {
+        $cart_id = $request->ids;
+//        print_r($ids);die;
         $cartmodel=new cart;
-        $goodsmodel=new goods;
         $data=$cartmodel
             ->join('goods','cart.goods_id','=','goods.goods_id')
             ->where(['user_id'=>session('user_id'),'cart_status'=>1])
+            ->whereIn('cart_id',$cart_id)
             ->get();
 //        print_r($data);die;
 
@@ -93,7 +95,7 @@ class UserController extends Controller
      */
     public function paysuccess()
     {
-        $data = Goods::where('is_hot',1)->get();
+        $data = goods::where('is_hot',1)->get();
         return view('paysuccess',['data'=>$data]);
     }
 
@@ -103,6 +105,20 @@ class UserController extends Controller
     public function writeaddr()
     {
         return view('writeaddr');
+    }
+    /**
+     * 删除地址
+     */
+    public function deladd(Request $request)
+    {
+        $address_id = $request->address_id;
+        $res = address::where('address_id',$address_id)->where('user_id',session('user_id'))->update(['address_status'=>2]);
+        if($res){
+            echo json_encode(['code'=>1,'font'=>'删除成功！']);
+        }else{
+            echo json_encode(['code'=>2,'msg'=>'删除失败！']);
+        }
+
     }
 
 }

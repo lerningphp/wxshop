@@ -246,16 +246,15 @@
                 "{{url('/registerdo')}}",
                 {_token:_token,usercode:usercode,user_pwd:user_pwd,user_tel:user_tel},
                 function(res){
-
                     if(res==1){
-                        layer.msg("手机号码错误");
-                    }else if(res==3){
-                        layer.msg("验证码错误");
-                    }else if(res==4){
                         layer.msg("注册成功");
                         location.href= "{{url('index')}}";
-                    }else if(res==5){
+                    }else if(res==2){
                         layer.msg("注册失败");
+                        return false;
+                    }else if(res==3){
+                        layer.msg('用户以注册');
+                        return false;
                     }
                 }
 

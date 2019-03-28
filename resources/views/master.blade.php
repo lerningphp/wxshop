@@ -21,9 +21,10 @@
     <link href="{{url('layui/css/layui.css')}}" rel="stylesheet" >
     <link rel="stylesheet" href="{{url('css/buyrecord.css')}}">
     <link href="{{url('css/single.css')}}" rel="stylesheet" type="text/css" />
-    {{--<script src="{{url('js/jquery-1.8.3.min.js')}}"></script>--}}
+    <link rel="stylesheet" href="{{url('css/address.css')}}">
+    <script src="{{url('js/jquery-1.8.3.min.js')}}"></script>
     <script src="{{url('js/jquery-1.11.2.min.js')}}"></script>
-    <script src="{{url('js/jquery-3.1.1.min.js')}}"></script>
+    {{--<script src="{{url('js/jquery-3.1.1.min.js')}}"></script>--}}
     <script src="{{url('layui/layui.js')}}"></script>
     <script src="{{url('js/all.js')}}"></script>
     <script src="{{url('js/index.js')}}"></script>
@@ -32,6 +33,9 @@
     <script src="{{url('js/swiper.min.js')}}"></script>
     <script src="{{url('js/photo.js')}}" charset="utf-8"></script>
     <script src="http://cdn.bootcss.com/flexslider/2.6.2/jquery.flexslider.min.js"></script>
+    <script src="{{url('js/zepto.js')}}" charset="utf-8"></script>
+    <script src="{{url('js/sm.js')}}"></script>
+    <script src="{{url('js/sm-extend.js')}}"></script>
 
     {{--<script src="{{url('js/jquery190_1.js')}}" language="javascript" type="text/javascript"></script>--}}
 </head>

@@ -1,31 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>地址管理</title>
-    <meta content="app-id=984819816" name="apple-itunes-app" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, maximum-scale=1.0" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-    <link href="{{url('css/comm.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{url('css/address.css')}}">
-    <link rel="stylesheet" href="{{url('css/sm.css')}}">
-</head>
+@extends('master')
+
+
+@section('title','地址管理')
+<link rel="stylesheet" href="{{url('css/sm.css')}}">
+@section('content')
+
+
 <body>
     
-<!--触屏版内页头部-->
-<div class="m-block-header" id="div-header">
-    <strong id="m-title">地址管理</strong>
-    <a href="javascript:history.back();" class="m-back-arrow"><i class="m-public-icon"></i></a>
-    <a href="{{url('user/writeaddr')}}" class="m-index-icon">添加</a>
-</div>
-<div class="addr-wrapp">
-    <div class="addr-list">
-         <ul>
 
-            @foreach($addressInfo as $v)
-                <hr>
+<div class="addr-wrapp">
+    <input type="hidden" id="_token" value="{{csrf_token()}}">
+    @foreach($addressInfo as $v)
+    <div class="addr-list">
+         <ul address_id="{{$v->address_id}}">
             <li class="clearfix">
                 <span class="fl">{{$v->address_name}}</span>
                 <span class="fr">{{$v->address_tel}}</span>
@@ -45,16 +33,14 @@
                     <span class="remove">删除</span>
                 </div>
             </li>
-            @endforeach
         </ul>  
     </div>
-   
+    @endforeach
 </div>
 
-
-<script src="{{url('js/zepto.js')}}" charset="utf-8"></script>
-<script src="{{url('js/sm.js')}}"></script>
-<script src="{{url('js/sm-extend.js')}}"></script>
+</body>
+@endsection
+@section('my-js')
 
 
 <!-- 单选 -->
@@ -62,28 +48,31 @@
     
 
      // 删除地址
-    $(document).on('click','span.remove', function () {
-        var buttons1 = [
-            {
-              text: '删除',
-              bold: true,
-              color: 'danger',
-              onClick: function() {
-                $.alert("您确定删除吗？");
-              }
-            }
-          ];
-          var buttons2 = [
-            {
-              text: '取消',
-              bg: 'danger'
-            }
-          ];
-          var groups = [buttons1, buttons2];
-          $.actions(groups);
+    $(document).on('click','.remove', function () {
+        var _this = $(this);
+        var _token = $('#_token').val();
+        var address_id = $(this).parents('ul').attr('address_id');
+        // console.log(address_id);
+        $.post(
+            "{{url('user/deladd')}}",
+            {address_id:address_id,_token:_token},
+            function (res) {
+                // console.log(res);
+                if(res.code == 1){
+                    layer.msg(res.font,{icon:res.code});
+                    window.location.reload();
+                }else{
+                    layer.msg(res.font,{icon:res.code});
+                    return false;
+                }
+            },
+            'json'
+        );
+        var groups = [buttons1, buttons2];
+        $.actions(groups);
     });
 </script>
-<script src="{{url('js/jquery-1.8.3.min.js')}}"></script>
+
 <script>
     var $$=jQuery.noConflict();
     $$(document).ready(function(){
@@ -110,7 +99,5 @@
     
 </script>
 
+@endsection
 
-
-</body>
-</html>

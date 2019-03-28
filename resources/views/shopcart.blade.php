@@ -17,7 +17,7 @@
             <ul id="cartBody">
                 @foreach($data as $k=>$v)
                 <li>
-                    <s class="xuan current" goods_id="{{$v->goods_id}}"></s>
+                    <s class="xuan" cart_id="{{$v->cart_id}}"></s>
                     <a class="fl u-Cart-img" href="{{url('index/shopcontent')}}/{{$v->goods_id}}">
                         <img src="{{url('image/goodsimg')}}/{{$v->goods_img}}" border="0" alt="">
                     </a>
@@ -43,13 +43,13 @@
         <div id="mycartpay" class="g-Total-bt g-car-new" style="">
             <dl>
                 <dt class="gray6">
-                    <s class="quanxuan current"></s>全选/
+                    <s class="quanxuan"></s>全选/
 
-                    <p class="money-total">合计<em class="orange total"><span>￥</span></em></p>
+                    <p class="money-total">合计<em class="orange total"><span>￥</span>0</em></p>
                     
                 </dt>
                 <dd>
-                    <a href="{{url('user/payment')}}" id="a_payment" class="orangeBtn w_account">去结算</a>
+                    <a href="javascript:;" id="a_payment" class="orangeBtn w_account pay">去结算</a>
                 </dd>
             </dl>
         </div>
@@ -142,7 +142,6 @@
                     'json'
                 );
             })
-
             //点击加号
             $(".add").click(function () {
                 var _this = $(this);
@@ -179,6 +178,29 @@
                 getCartNum(goods_id,buy_numbers,_token,_this);
                 GetCount();
             })
+            //商品数量失焦
+            $(document).on('blur','.text_box',function(){
+                var _this=$(this);
+                var _token = $('#_token').val();
+                var buy_number=parseInt(_this.val());
+                var goods_num = _this.parent().attr('goods_num');
+                var goods_id = _this.parent().attr('goods_id');
+                // var s=$(this).parents('li').find('.xuan');
+                // if(buy_number<1){
+                //     _this.val(1);
+                // }
+                // if(buy_number>goods_num){
+                //     _this.val(goods_num);
+                // }
+                // if(isNan(buy_number)){
+                //     _this.val(1);
+                // }
+                // if(buy_number<goods_num){
+                //     _this.val(buy_number);
+                // }
+                getCartNum(goods_id,buy_number,_token,_this);
+                GetCount();
+            });
             //获取控制器数量
             function getCartNum(goods_id,buy_number,_token,_this)
             {
@@ -252,6 +274,30 @@
                 });
                 $(".total").html('<span>￥</span>'+(conts).toFixed(2));
             }
+            //点击结算
+            $(".pay").click(function () {
+                var _this = $(this);
+                var _token = $('#_token').val();
+                var ids=[];
+                $(".g-Cart-list .xuan").each(function () {
+                    if ($(this).hasClass("current")) {
+                        var cart_id=$(this).attr('cart_id');
+                        ids.push(cart_id);
+                    }
+                });
+                if(ids==''){
+                    layer.msg("没有选择商品或商品已下架！");
+                    return false;
+                }
+                // console.log(ids);
+                $.post(
+                    "{{url('user/payment')}}",
+                    {ids:ids,_token:_token},
+                    function (res) {
+                        console.log(res);
+                    }
+                );
+            })
             GetCount();
         })
     });

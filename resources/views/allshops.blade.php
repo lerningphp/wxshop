@@ -14,7 +14,7 @@
                 </div>
                 <div class="input-box">
                     <i class="s-icon"></i>
-                    <input type="text" placeholder="输入“汽车”试试" id="txtSearch" />
+                    <input type="text" placeholder="输入“哈哈”试试" id="txtSearch" />
                     <i class="c-icon" id="btnClearInput" style="display: none"></i>
                 </div>
             </div>
@@ -327,10 +327,25 @@
                     "{{url('index/price')}}",
                     {_token:_token,type:type},
                     function(res){
-                        $(".good-list-inner").html(res);
+                        $('.good-list-inner').html(res);
                     }
                 );
             })
+
+            //点击搜索
+            $('.s-icon').click(function () {
+                // var _this = $(this);
+                var _text = $('#txtSearch').val();
+                var _token = $("#_token").val();
+                $.post(
+                    "{{url('index/search')}}",
+                    {_text:_text,_token:_token},
+                    function (res) {
+                        $('.good-list-inner').html(res);
+                    }
+
+                );
+            });
         })
     })
 </script>

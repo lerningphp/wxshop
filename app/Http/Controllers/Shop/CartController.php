@@ -81,7 +81,7 @@ class CartController extends Controller
             ->get();
 //        print_r($data);die;
 
-        $allprice = '2';
+        $allprice = '0';
         foreach($data as $k=>$v){
             $allprice += $v['self_price']*$v['buy_number'];
         }

@@ -20,6 +20,5 @@ class address extends Model
     /**
      * 自定义时间戳的字段名
      */
-    const CREATED_AT = 'create_time';
-    const UPDATED_AT = 'update_time';
+    public $timestamps = false;
 }

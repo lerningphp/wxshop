@@ -35,6 +35,7 @@ Route::prefix('index')->group(function (){
     route::post('ishot','Shop\ShopController@ishot');
     route::post('isnew','Shop\ShopController@isnew');
     route::post('price','Shop\ShopController@price');
+    route::post('search','Shop\ShopController@search');
 });
 
 /**
@@ -57,8 +58,27 @@ Route::prefix('user')->group(function (){
     route::get('sharedetail','Shop\UserController@share');
     route::get('mywallet','Shop\UserController@mywallet');
     route::get('address','Shop\UserController@address');
-    route::get('payment','Shop\UserController@payment');
+    route::any('payment','Shop\UserController@payment');
     route::get('writeaddr','Shop\UserController@writeaddr');
     route::get('paysuccess','Shop\UserController@paysuccess');
+    route::post('deladd','Shop\UserController@deladd');
+
+});
+
+/**
+ * 我的潮购页面路由组
+ */
+Route::prefix('alipay')->group(function (){
+    route::any('mobilepay','AlipayController@mobilepay');
+    route::any('return','AlipayController@re');
+    route::any('notify','AlipayController@notify');
+
+});
+
+/**
+ * 考试商品数据测试
+ */
+Route::prefix('goods')->group(function (){
+    route::any('index','GoodsController@index');
 
 });
